@@ -31,6 +31,7 @@ def _run_cmd(ip, raw):
                              "-H", ip,
                              "-U", IPMI_USER,
                              "-P", IPMI_PASSWD,
+                             "-L", "USER"
                              "sdr"], stdout=subprocess.PIPE)
     out = proc.communicate()[0]
     raw += [x.rstrip() for x in out.split('|')]
