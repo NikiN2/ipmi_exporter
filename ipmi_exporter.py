@@ -3,6 +3,7 @@ import itertools
 import time
 import logging
 import os
+import re
 from multiprocessing import Process, Manager
 from prometheus_client import start_http_server, Summary
 from prometheus_client.core import GaugeMetricFamily, REGISTRY
@@ -68,10 +69,10 @@ class IpmiCollector(object):
                         if v in SKIP_PARAM:
                             continue
                         #value = [int(s,0) for s in v.split() if s.isdigit()][0]
-                        value = [int(s, 0) for s in v.split() if (s.isdigit() or (s.find('0x') != -1))][0]
+                        value = [int(s, 0) for s in v.split() if (s.isdigit() or (s.find('0x') != -1) or  re.match('\d{1,3}\.\d{2}', s))][0]
                         if 'CPU' in k:
                             sys_metrics['cpu_temp'].add_metric([ip], value)
-                        elif 'System' in k:
+                        elif 'System' in k or 'SYS' in k:
                             sys_metrics['system_temp'].add_metric([ip], value)
                         elif 'FAN' in k:
                             sys_metrics['fan_speed'].add_metric([ip], value)
