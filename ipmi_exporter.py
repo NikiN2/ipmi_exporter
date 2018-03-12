@@ -22,7 +22,11 @@ SKIP_PARAM=["no reading"]
 REQURED = [
     "CPU1 Temp",
     "System Temp",
-    "FAN1"
+    "FAN",
+    "MB",
+    "PS",
+    "DBP",
+    "SYS"
 ]
 # Create a metric to track time spent and requests made.
 REQUEST_TIME = Summary('request_processing_seconds', 'Time spent processing request')
@@ -60,6 +64,7 @@ class IpmiCollector(object):
             for k, v in all_metrics.items():
                 for r in REQURED:
                     if r in k:
+
                         if v in SKIP_PARAM:
                             continue
                         value = [int(s,0) for s in v.split() if s.isdigit()][0]
