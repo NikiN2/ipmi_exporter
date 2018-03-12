@@ -64,7 +64,7 @@ class IpmiCollector(object):
             for k, v in all_metrics.items():
                 for r in REQURED:
                     if r in k:
-
+                        print("V:",v,"K:",k)
                         if v in SKIP_PARAM:
                             continue
                         #value = [int(s,0) for s in v.split() if s.isdigit()][0]
