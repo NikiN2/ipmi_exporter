@@ -15,6 +15,7 @@ except AttributeError:
 
 IPMI_USER = os.getenv('IPMI_USER', 'ADMIN')
 IPMI_PASSWD = os.getenv('IPMI_PASSWD', 'ADMIN')
+IPMI_PRIV = os.getenv('IPMI_PRIV', 'USER')
 
 REQURED = [
     "CPU1 Temp",
@@ -31,7 +32,7 @@ def _run_cmd(ip, raw):
                              "-H", ip,
                              "-U", IPMI_USER,
                              "-P", IPMI_PASSWD,
-                             "-L", "USER"
+                             "-L", IPMI_PRIV,
                              "sdr"], stdout=subprocess.PIPE)
     out = proc.communicate()[0]
     raw += [x.rstrip() for x in out.split('|')]
