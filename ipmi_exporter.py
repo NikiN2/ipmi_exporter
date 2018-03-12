@@ -17,6 +17,8 @@ IPMI_USER = os.getenv('IPMI_USER', 'ADMIN')
 IPMI_PASSWD = os.getenv('IPMI_PASSWD', 'ADMIN')
 IPMI_PRIV = os.getenv('IPMI_PRIV', 'USER')
 
+SKIP_PARAM=["no reading"]
+
 REQURED = [
     "CPU1 Temp",
     "System Temp",
@@ -58,6 +60,8 @@ class IpmiCollector(object):
             for k, v in all_metrics.items():
                 for r in REQURED:
                     if r in k:
+                        if v in SKIP_PARAM:
+                            continue
                         value = [int(s) for s in v.split() if s.isdigit()][0]
                         if 'CPU' in k:
                             sys_metrics['cpu_temp'].add_metric([ip], value)
