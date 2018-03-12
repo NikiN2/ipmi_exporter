@@ -78,7 +78,7 @@ class IpmiCollector(object):
 
 def main():
     REGISTRY.register(IpmiCollector())
-    start_http_server(8000)
+    start_http_server(8001)
     while True:
         time.sleep(5)
 
