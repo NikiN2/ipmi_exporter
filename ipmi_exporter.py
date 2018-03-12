@@ -67,7 +67,8 @@ class IpmiCollector(object):
 
                         if v in SKIP_PARAM:
                             continue
-                        value = [int(s,0) for s in v.split() if s.isdigit()][0]
+                        #value = [int(s,0) for s in v.split() if s.isdigit()][0]
+                        value = [int(s, 0) for s in v.split() if (s.isdigit() or (s.find('0x') != -1))][0]
                         if 'CPU' in k:
                             sys_metrics['cpu_temp'].add_metric([ip], value)
                         elif 'System' in k:
