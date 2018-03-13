@@ -51,7 +51,7 @@ class IpmiCollector(object):
         sys_metrics = {
             'cpu_temp': GaugeMetricFamily('ipmi_cpu_temp', 'CPU temp', labels=['ip']),
             'system_temp': GaugeMetricFamily('ipmi_system_temp', 'System temp', labels=['ip']),
-            'fan_speed': GaugeMetricFamily('ipmi_fan_speed', 'Fan speed', labels=['ip'])
+            'fan_speed': GaugeMetricFamily('ipmi_fan_speed', 'Fan speed', labels=['ip']),
             'power': GaugeMetricFamily('ipmi_power', 'power', labels=['ip'])
         }
         raw = Manager().list([])
