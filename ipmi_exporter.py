@@ -52,6 +52,7 @@ class IpmiCollector(object):
             'cpu_temp': GaugeMetricFamily('ipmi_cpu_temp', 'CPU temp', labels=['ip']),
             'system_temp': GaugeMetricFamily('ipmi_system_temp', 'System temp', labels=['ip']),
             'fan_speed': GaugeMetricFamily('ipmi_fan_speed', 'Fan speed', labels=['ip'])
+            'power': GaugeMetricFamily('ipmi_power', 'power', labels=['ip'])
         }
         raw = Manager().list([])
         for ip in IPS:
@@ -75,11 +76,13 @@ class IpmiCollector(object):
                             #value = [int(s,0) for s in v.split() if s.isdigit()][0]
                             value = [int(s, 0) for s in v.split() if (s.isdigit() or (s.find('0x') != -1) )][0]
                         if 'CPU' in k:
-                            sys_metrics['cpu_temp'].add_metric([ip], value)
+                            sys_metrics['cpu_temp'].add_metric([ip+k], value)
                         elif 'System' in k or 'SYS' in k:
-                            sys_metrics['system_temp'].add_metric([ip], value)
+                            sys_metrics['system_temp'].add_metric([ip+k], value)
                         elif 'FAN' in k:
-                            sys_metrics['fan_speed'].add_metric([ip], value)
+                            sys_metrics['fan_speed'].add_metric([ip+k], value)
+                        elif 'PS' in k:
+                            sys_metrics['power'].add_metric([ip+k], value)
                         else:
                             logging.error("Undefined metric: %s", k)
 
