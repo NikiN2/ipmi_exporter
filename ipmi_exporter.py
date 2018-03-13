@@ -18,7 +18,7 @@ IPMI_USER = os.getenv('IPMI_USER', 'ADMIN')
 IPMI_PASSWD = os.getenv('IPMI_PASSWD', 'ADMIN')
 IPMI_PRIV = os.getenv('IPMI_PRIV', 'USER')
 
-SKIP_PARAM=["no reading"]
+SKIP_PARAM=[" no reading"]
 
 REQURED = [
     "CPU1 Temp",
