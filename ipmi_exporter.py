@@ -67,6 +67,8 @@ class IpmiCollector(object):
                 for r in REQURED:
                     if r in k:
                         print("V:",v,"K:",k)
+                        if k.find('\n') > -1:
+                            k = (k.split('\n')[-1])
                         ff = re.search('\d{1,3}\.\d{2}', v)
                         fhex=re.search('0x\d{2}', v)
                         if v in SKIP_PARAM:
