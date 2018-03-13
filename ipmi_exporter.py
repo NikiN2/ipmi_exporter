@@ -68,7 +68,10 @@ class IpmiCollector(object):
                     if r in k:
                         print("V:",v,"K:",k)
                         ff = re.search('\d{1,3}\.\d{2}', v)
+                        fhex=re.search('0x\d{2}', v)
                         if v in SKIP_PARAM:
+                            continue
+                        elif fhex is not None:
                             continue
                         if ff is not None:
                             value = float(ff.group())
