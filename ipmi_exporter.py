@@ -66,10 +66,11 @@ class IpmiCollector(object):
                 for r in REQURED:
                     if r in k:
                         print("V:",v,"K:",k)
+                        ff = re.search('\d{1,3}\.\d{2}', v)
                         if v in SKIP_PARAM:
                             continue
-                        if re.match('\d{1,3}\.\d{2}', v):
-                            value = [float(s) for s in v.split() if (s.isdigit() or (s.find('0x') != -1))][0]
+                        if ff is not None:
+                            value = float(ff.group())
                         else:
                             #value = [int(s,0) for s in v.split() if s.isdigit()][0]
                             value = [int(s, 0) for s in v.split() if (s.isdigit() or (s.find('0x') != -1) )][0]
