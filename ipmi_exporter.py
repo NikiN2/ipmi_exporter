@@ -74,7 +74,7 @@ class IpmiCollector(object):
                             value = float(ff.group())
                         else:
                             #value = [int(s,0) for s in v.split() if s.isdigit()][0]
-                            value = [int(s, 0) for s in v.split() if (s.isdigit()  )][0]
+                            value = [int(s) for s in v.split() if s.isdigit()  ][0]
                         if 'CPU' in k:
                             sys_metrics['cpu_temp'].add_metric([ip+k], value)
                         elif 'System' in k or 'T_AMB' in k or 'T_OUT' in k:
